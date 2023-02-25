@@ -1,4 +1,7 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
+import { defineNuxtConfig } from 'nuxt/config';
 
-})
+// https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
+export default defineNuxtConfig({
+  builder: 'vite',
+  ssr: false,
+});

@@ -1,12 +1,16 @@
 FROM node:18-alpine AS base
 
+WORKDIR /app
 RUN npm i -g pnpm
 
 FROM base AS dependencies
 
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
+COPY pnpm-lock.yaml ./
+RUN pnpm fetch
+
+COPY package.json .npmrc ./
+RUN pnpm i --offline
 
 FROM base AS build
 
@@ -15,10 +19,9 @@ COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN pnpm build
 
-FROM base AS deploy
+FROM node:18-alpine AS deploy
 
 WORKDIR /app
 COPY --from=build /app/.output/ ./.output/
-COPY --from=build /app/node_modules ./node_modules
 
 CMD [ "node", ".output/server/index.mjs" ]
