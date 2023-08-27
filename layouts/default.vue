@@ -24,7 +24,7 @@ header {
   align-items: center;
   gap: 12px;
   height: 40px;
-  border: 1px solid #EEE;
+  border: 1px solid #eee;
   padding: 8px;
 }
 
@@ -35,4 +35,5 @@ header a {
 content {
   display: flex;
   padding: 8px;
-}</style>
+}
+</style>
